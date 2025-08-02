@@ -131,11 +131,21 @@ body {
     color: white;
 }
 
+/* Controls container */
+.controls-container {
+    flex-shrink: 0;
+    position: relative;
+    z-index: 100;
+}
+
+.controls-container.hidden {
+    display: none;
+}
+
 /* Control buttons */
 .controls {
     height: 40px;
     min-height: 40px;
-    flex-shrink: 0;
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(15px) saturate(1.8) contrast(1.2);
     -webkit-backdrop-filter: blur(15px) saturate(1.8) contrast(1.2);
@@ -145,7 +155,79 @@ body {
     justify-content: center;
     gap: 8px;
     position: relative;
-    z-index: 100;
+}
+
+/* Floating toggle button when controls are hidden */
+.floating-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px) saturate(1.8) contrast(1.2);
+    -webkit-backdrop-filter: blur(15px) saturate(1.8) contrast(1.2);
+    border: 2px solid #4a148c;
+    border-radius: 50%;
+    color: #4a148c;
+    font-size: 12px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 102;
+    transition: all 0.2s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 4px 12px rgba(74, 20, 140, 0.3);
+}
+
+.floating-toggle.visible {
+    display: flex;
+}
+
+.floating-toggle:hover {
+    background: #4a148c;
+    color: white;
+    border-color: #6a1b9a;
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(74, 20, 140, 0.4);
+}
+
+.floating-toggle:active {
+    transform: scale(0.95);
+}
+
+/* Toggle button for controls */
+.controls-toggle {
+    width: 28px;
+    height: 28px;
+    border: 2px solid #4a148c;
+    border-radius: 50%;
+    background: transparent;
+    color: #4a148c;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 101;
+    transition: all 0.2s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.controls-toggle:hover {
+    background: #4a148c;
+    color: white;
+    border-color: #6a1b9a;
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(74, 20, 140, 0.3);
+}
+
+.controls-toggle:active {
+    transform: scale(0.95);
 }
 
 .controls::before {
@@ -166,7 +248,7 @@ body {
     border-radius: 50%;
     background: transparent;
     color: #4a148c;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -176,6 +258,7 @@ body {
     position: relative;
     z-index: 101;
     touch-action: manipulation; /* Prevent zoom on double tap */
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
 }
 
 .control-btn:hover {
@@ -205,17 +288,34 @@ body {
     }
     
     .control-btn {
-        width: 32px;
-        height: 32px;
-        font-size: 16px;
-        /* Larger touch targets for mobile */
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
+        border-width: 1px;
+        /* Smaller on mobile to save space */
     }
     
     .controls {
-        gap: 10px;
-        height: 44px;
-        min-height: 44px;
-        /* Larger height for easier touch interaction */
+        gap: 6px;
+        height: 36px;
+        min-height: 36px;
+        /* Smaller height for mobile */
+    }
+    
+    .floating-toggle {
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
+        border-width: 1px;
+        bottom: 18px;
+        right: 8px;
+    }
+    
+    .controls-toggle {
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
+        border-width: 1px;
     }
 }
 
@@ -365,4 +465,30 @@ body.dark-mode .connection-bar {
     background: #2d1b4e;
     color: #e1bee7;
     border-bottom: 1px solid #4a2c6a;
+}
+
+body.dark-mode .controls-toggle {
+    border: 2px solid #e1bee7;
+    color: #e1bee7;
+    background: transparent;
+}
+
+body.dark-mode .controls-toggle:hover {
+    background: #7b1fa2;
+    color: white;
+    border-color: #ab47bc;
+}
+
+body.dark-mode .floating-toggle {
+    background: rgba(15, 8, 32, 0.95);
+    border: 2px solid #e1bee7;
+    color: #e1bee7;
+    box-shadow: 0 4px 12px rgba(123, 31, 162, 0.4);
+}
+
+body.dark-mode .floating-toggle:hover {
+    background: #7b1fa2;
+    color: white;
+    border-color: #ab47bc;
+    box-shadow: 0 6px 16px rgba(123, 31, 162, 0.5);
 } 
