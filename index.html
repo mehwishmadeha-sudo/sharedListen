@@ -28,14 +28,21 @@
         <textarea id="ownEditor" class="own-editor" spellcheck="false"></textarea>
     </div>
     
-    <!-- Control buttons -->
-    <div class="controls">
-        <button id="increaseSizeBtn" class="control-btn"><i class="fa fa-plus" aria-hidden="true"></i></button>
-        <button id="decreaseSizeBtn" class="control-btn"><i class="fa fa-minus" aria-hidden="true"></i></button>
-        <button id="fontToggleBtn" class="control-btn"><i class="fa fa-font" aria-hidden="true"></i></button>
-        <button id="darkModeBtn" class="control-btn"><i class="fa fa-moon-o" aria-hidden="true"></i></button>
-        <button id="clearBtn" class="control-btn"><i class="fa fa-times" aria-hidden="true"></i></button>
+    <!-- Control buttons container -->
+    <div id="controlsContainer" class="controls-container">
+        <div class="controls">
+            <button id="increaseSizeBtn" class="control-btn"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <button id="decreaseSizeBtn" class="control-btn"><i class="fa fa-minus" aria-hidden="true"></i></button>
+            <button id="fontToggleBtn" class="control-btn"><i class="fa fa-font" aria-hidden="true"></i></button>
+            <button id="darkModeBtn" class="control-btn"><i class="fa fa-moon-o" aria-hidden="true"></i></button>
+            <button id="refreshBtn" class="control-btn"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+            <button id="clearBtn" class="control-btn"><i class="fa fa-times" aria-hidden="true"></i></button>
+            <button id="controlsToggle" class="controls-toggle"><i class="fa fa-cog" aria-hidden="true"></i></button>
+        </div>
     </div>
+    
+    <!-- Floating toggle button (shown when controls are hidden) -->
+    <button id="floatingToggle" class="floating-toggle"><i class="fa fa-cog" aria-hidden="true"></i></button>
 
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
