@@ -16,7 +16,11 @@ class SplitTextApp {
         this.decreaseSizeBtn = document.getElementById('decreaseSizeBtn');
         this.fontToggleBtn = document.getElementById('fontToggleBtn');
         this.darkModeBtn = document.getElementById('darkModeBtn');
+        this.refreshBtn = document.getElementById('refreshBtn');
         this.clearBtn = document.getElementById('clearBtn');
+        this.controlsToggle = document.getElementById('controlsToggle');
+        this.floatingToggle = document.getElementById('floatingToggle');
+        this.controlsContainer = document.getElementById('controlsContainer');
         
         // Initialize split editor
         this.editor = new SplitTextEditor(
@@ -26,6 +30,7 @@ class SplitTextApp {
             this.remoteSelection
         );
         
+        this.controlsVisible = true;
         this.editor.setEnabled(false);
         this.setupCallbacks();
         this.setupControls();
@@ -33,25 +38,78 @@ class SplitTextApp {
     }
 
     setupControls() {
-        this.increaseSizeBtn.addEventListener('click', () => {
+        // Prevent keyboard hiding by preventing default and refocusing
+        const preventKeyboardHide = (callback) => {
+            return (e) => {
+                e.preventDefault();
+                const activeElement = document.activeElement;
+                callback();
+                // Refocus the text area after a short delay to prevent keyboard hiding
+                setTimeout(() => {
+                    if (activeElement && activeElement.tagName === 'TEXTAREA') {
+                        activeElement.focus();
+                    }
+                }, 10);
+            };
+        };
+
+        this.increaseSizeBtn.addEventListener('click', preventKeyboardHide(() => {
             this.editor.increaseFontSize();
-        });
+        }));
 
-        this.decreaseSizeBtn.addEventListener('click', () => {
+        this.decreaseSizeBtn.addEventListener('click', preventKeyboardHide(() => {
             this.editor.decreaseFontSize();
-        });
+        }));
 
-        this.fontToggleBtn.addEventListener('click', () => {
+        this.fontToggleBtn.addEventListener('click', preventKeyboardHide(() => {
             this.editor.toggleFont();
-        });
+        }));
 
-        this.darkModeBtn.addEventListener('click', () => {
+        this.darkModeBtn.addEventListener('click', preventKeyboardHide(() => {
             this.editor.toggleDarkMode();
-        });
+        }));
 
-        this.clearBtn.addEventListener('click', () => {
+        this.refreshBtn.addEventListener('click', preventKeyboardHide(() => {
+            this.refreshPage();
+        }));
+
+        this.clearBtn.addEventListener('click', preventKeyboardHide(() => {
             this.editor.clearOwnText();
-        });
+        }));
+
+        // Controls toggle functionality
+        this.controlsToggle.addEventListener('click', preventKeyboardHide(() => {
+            this.toggleControls();
+        }));
+        
+        this.floatingToggle.addEventListener('click', preventKeyboardHide(() => {
+            this.toggleControls();
+        }));
+    }
+
+    toggleControls() {
+        this.controlsVisible = !this.controlsVisible;
+        
+        if (this.controlsVisible) {
+            this.controlsContainer.classList.remove('hidden');
+            this.floatingToggle.classList.remove('visible');
+        } else {
+            this.controlsContainer.classList.add('hidden');
+            this.floatingToggle.classList.add('visible');
+        }
+    }
+
+    refreshPage() {
+        // Close connections before refresh
+        if (this.webrtc) {
+            this.webrtc.close();
+        }
+        if (this.firebase) {
+            this.firebase.cleanup();
+        }
+        
+        // Reload the page
+        window.location.reload();
     }
 
     setupCallbacks() {
