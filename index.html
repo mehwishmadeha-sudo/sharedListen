@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split Text Editor</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Connection status bar -->
+    <div id="connectionBar" class="connection-bar">
+        <span>Not Connected</span>
+    </div>
+    
+    <!-- Upper area - Remote user's text (read-only) -->
+    <div class="upper-area">
+        <div id="remoteEditor" class="remote-editor" contenteditable="false" spellcheck="false"></div>
+        <div id="remoteCursor" class="remote-cursor"></div>
+        <div id="remoteSelection" class="remote-selection"></div>
+    </div>
+    
+    <!-- Lower area - Own text (editable) -->
+    <div class="lower-area">
+        <textarea id="ownEditor" class="own-editor" spellcheck="false"></textarea>
+    </div>
+    
+    <!-- Control buttons -->
+    <div class="controls">
+        <button id="increaseSizeBtn" class="control-btn"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button id="decreaseSizeBtn" class="control-btn"><i class="fa fa-minus" aria-hidden="true"></i></button>
+        <button id="fontToggleBtn" class="control-btn"><i class="fa fa-font" aria-hidden="true"></i></button>
+        <button id="darkModeBtn" class="control-btn"><i class="fa fa-moon-o" aria-hidden="true"></i></button>
+        <button id="clearBtn" class="control-btn"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="webrtc-handler.js"></script>
+    <script src="text-editor.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
